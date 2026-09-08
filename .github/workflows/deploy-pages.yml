@@ -25,11 +25,15 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - name: Disable Jekyll processing
-        run: touch dist/client/.nojekyll
+      - name: Assemble GitHub Pages artifact
+        run: |
+          cp dist/client/index.html dist/client/color-token-lab/index.html
+          cp dist/client/index.rsc dist/client/color-token-lab/index.rsc
+          cp dist/client/favicon.svg dist/client/color-token-lab/favicon.svg
+          touch dist/client/color-token-lab/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/client
+          path: dist/client/color-token-lab
 
   deploy:
     environment:
